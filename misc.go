@@ -5,7 +5,6 @@ import "crypto/md5"
 import "crypto/rand"
 import "crypto/sha1"
 import "fmt"
-import mrand "math/rand"
 
 /*
  Return a random 16-byte base64 alphabet string
@@ -36,8 +35,9 @@ Generate MD5 formatting password: $magic$salt$hash from plaintext
 */
 func GenMD5Password(plaintext string) string {
 	salt := RandomKey()
-	magic := fmt.Sprintf("$%d$", mrand.Intn(100))
+	magic := "$apr1$"
 	passwd := MD5Crypt([]byte(plaintext), []byte(salt), []byte(magic))
+	fmt.Println(string(passwd))
 	return string(passwd)
 }
 
